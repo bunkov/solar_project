@@ -24,9 +24,9 @@ def read_space_objects_data_from_file(input_filename):
                 parse_star_parameters(line, star)
                 objects.append(star)
             elif object_type == "planet":
-            	planet = Planet()
-            	parse_planet_parameters(line, planet)
-            	objects.append(planet)
+                planet = Planet()
+                parse_planet_parameters(line, planet)
+                objects.append(planet)
             else:
                 print("Unknown space object")
 
@@ -47,13 +47,14 @@ def parse_star_parameters(line, star):
     **line** — строка с описанием звезды.
     **star** — объект звезды.
     """
-	star.R = int(line.split()[1])
-	star.color = line.split()[2]
-	star.m = float(line.split()[3])
-	star.x = float(line.split()[4])
-	star.y = float(line.split()[5])
-	star.Vx = float(line.split()[6])
-	star.Vy = float(line.split()[7])
+    values = line.split()
+    star.R = int(values[1])
+    star.color = values[2]
+    star.m = float(values[3])
+    star.x = float(values[4])
+    star.y = float(values[5])
+    star.Vx = float(values[6])
+    star.Vy = float(values[7])
 
 def parse_planet_parameters(line, planet):
     """Считывает данные о планете из строки.
@@ -67,16 +68,17 @@ def parse_planet_parameters(line, planet):
 
     Параметры:
 
-    **line** — строка с описание планеты.
+    **line** — строка с описанием планеты.
     **planet** — объект планеты.
     """
-	planet.R = int(line.split()[1])
-	planet.color = line.split()[2]
-	planet.m = float(line.split()[3])
-	planet.x = float(line.split()[4])
-	planet.y = float(line.split()[5])
-	planet.Vx = float(line.split()[6])
-	planet.Vy = float(line.split()[7])
+    values = line.split()
+    planet.R = int(values[1])
+    planet.color = values[2]
+    planet.m = float(values[3])
+    planet.x = float(values[4])
+    planet.y = float(values[5])
+    planet.Vx = float(values[6])
+    planet.Vy = float(values[7])
 
 def write_space_objects_data_to_file(output_filename, space_objects):
     """Сохраняет данные о космических объектах в файл.
@@ -93,7 +95,11 @@ def write_space_objects_data_to_file(output_filename, space_objects):
         for obj in space_objects:
             print(out_file, "%s %d %s %f %f %f %f %f" % (type(obj), obj.R, obj.color, obj.m, obj.x, obj.y, obj.Vx, obj.Vy))
 
-# FIXME: хорошо бы ещё сделать функцию, сохранающую статистику в заданный файл...
+def statistics(output_filename, space_objects):
+    with open(output_filename, 'w') as out_file:
+        for obj in space_objects:
+            print(out_file, "%s %d %s %f %f %f %f %f" % (type(obj), obj.R, obj.color, obj.m, obj.x, obj.y, obj.Vx, obj.Vy))
+            # FIXME: хорошо бы ещё сделать функцию, сохранающую статистику в заданный файл...
 
 if __name__ == "__main__":
     print("This module is not for direct call!")
